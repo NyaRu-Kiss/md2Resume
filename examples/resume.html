@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>林舟 - 个人简历</title>
+    <style>
+        @page {
+            size: Letter;
+            margin: 8mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Calibri, "Microsoft YaHei", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            font-size: 8.7pt;
+            line-height: 1.24;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px 14px;
+            position: relative;
+        }
+        
+        /* 装饰几何图形 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border: 2px solid #e0e7ff;
+            transform: rotate(45deg);
+            z-index: 0;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: #dbeafe;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        /* 顶部标题区域 */
+        .header {
+            text-align: center;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #2c5c97;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, #2c5c97, #3a7bd5);
+        }
+        
+        .title-row {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 2px;
+        }
+        
+        .cv-label {
+            font-size: 13pt;
+            font-weight: bold;
+            color: #2c5c97;
+        }
+        
+        .position-label {
+            font-size: 10pt;
+            color: #2c5c97;
+            font-weight: bold;
+        }
+        
+        /* 模块通用样式 */
+        .section {
+            margin-bottom: 7px;
+            position: relative;
+            background: #fefefe;
+            border-radius: 4px;
+        }
+        
+        .section-title {
+            font-size: 10pt;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #2c5c97 0%, #3a7bd5 100%);
+            padding: 4px 12px;
+            display: inline-block;
+            position: relative;
+            margin-bottom: 4px;
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(44, 92, 151, 0.3);
+            z-index: 1;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -8px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 8px solid #3a7bd5;
+        }
+        
+        /* 基本信息 */
+        .basic-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            font-size: 8.7pt;
+            padding: 4px 0 1px;
+            margin-bottom: 2px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #555;
+        }
+        
+        .contact-icon {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        /* 电话图标 */
+        .phone-icon {
+            background: linear-gradient(135deg, #2c5c97 0%, #3a7bd5 100%);
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+        
+        /* 邮箱图标 */
+        .email-icon {
+            background: linear-gradient(135deg, #2c5c97 0%, #3a7bd5 100%);
+            clip-path: circle(50%);
+        }
+        
+        /* 地址图标 */
+        .location-icon {
+            background: linear-gradient(135deg, #2c5c97 0%, #3a7bd5 100%);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        
+        .basic-info-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .avatar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        
+        .avatar-placeholder {
+            width: 64px;
+            height: 76px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 7pt;
+            text-align: center;
+            background: #fafafa;
+            position: relative;
+        }
+        
+        .avatar-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 20px;
+            height: 20px;
+            background: #dbeafe;
+            border-radius: 50%;
+        }
+        
+        .avatar-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            background: #2c5c97;
+            transform: rotate(45deg);
+        }
+        
+        /* 专业技能 */
+        .skill-category {
+            margin-bottom: 3px;
+            padding-left: 9px;
+            position: relative;
+        }
+        
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 4px;
+            height: 4px;
+            background: #2c5c97;
+            border-radius: 50%;
+        }
+        
+        .skill-label {
+            font-weight: bold;
+            color: #333;
+            font-size: 8.9pt;
+        }
+        
+        .skill-content {
+            color: #555;
+            font-size: 8.2pt;
+            padding-left: 1px;
+        }
+        
+        /* 项目经历 */
+        .experience-item {
+            margin-bottom: 5px;
+            padding: 4px 7px;
+            border-left: 2px solid #dbeafe;
+            background: #f8fafc;
+        }
+        
+        .exp-date {
+            font-size: 8.2pt;
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .project-block {
+            margin-top: 2px;
+            padding-left: 0;
+        }
+        
+        .project-name {
+            font-weight: bold;
+            font-size: 9pt;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .project-tech {
+            font-size: 8.1pt;
+            color: #666;
+            margin-bottom: 1px;
+        }
+        
+        .project-tech strong {
+            color: #333;
+        }
+        
+        .project-role {
+            font-size: 8.1pt;
+            color: #555;
+            margin-bottom: 1px;
+        }
+        
+        .project-list {
+            padding-left: 12px;
+            font-size: 8.1pt;
+            color: #555;
+            margin: 2px 0 0;
+        }
+        
+        .project-list li {
+            margin-bottom: 1px;
+            line-height: 1.2;
+            position: relative;
+        }
+        
+        .project-list li::before {
+            content: '•';
+            color: #2c5c97;
+            position: absolute;
+            left: -12px;
+            top: 0;
+        }
+        
+        /* 教育背景 */
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+            padding: 2px 6px;
+            background: #f8fafc;
+            border-radius: 3px;
+        }
+        
+        .edu-school {
+            font-weight: bold;
+            font-size: 8.8pt;
+        }
+        
+        .edu-details {
+            font-size: 8.1pt;
+            color: #555;
+            margin-top: 1px;
+        }
+        
+        .edu-degree {
+            font-size: 8.3pt;
+            color: #666;
+        }
+        
+        /* 自我评价 */
+        .eval-list {
+            padding-left: 12px;
+            font-size: 8.1pt;
+            color: #555;
+        }
+        
+        .eval-list li {
+            margin-bottom: 1px;
+            position: relative;
+            line-height: 1.18;
+        }
+        
+        .eval-list li::before {
+            content: '✓';
+            color: #2c5c97;
+            position: absolute;
+            left: -15px;
+            top: 0;
+            font-weight: bold;
+        }
+        
+        .eval-list strong {
+            color: #333;
+        }
+        
+        /* 打印样式 */
+        @media print {
+            body {
+                padding: 8px 10px;
+            }
+            
+            body::before,
+            body::after,
+            .header::after,
+            .avatar-placeholder::before,
+            .avatar-placeholder::after,
+            .skill-category::before,
+            .project-list li::before,
+            .eval-list li::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部标题区域 -->
+    <div class="header">
+        <div class="title-row">
+            <span class="cv-label">个人简历</span>
+            <span class="position-label">求职意向：全栈开发工程师</span>
+        </div>
+    </div>
+    
+    <!-- 基本信息 -->
+    <div class="section">
+        <div class="section-title">基本信息</div>
+        <div style="display: flex; align-items: flex-start;">
+            <div class="basic-info-content">
+                <div class="basic-info">
+                    <span class="contact-item"><i class="contact-icon phone-icon"></i> 姓名：林舟</span>
+                    <span class="contact-item"><i class="contact-icon phone-icon"></i> 电话：13800138000</span>
+                    <span class="contact-item"><i class="contact-icon email-icon"></i> 邮箱：linzhou@example.com</span>
+                    <span class="contact-item"><i class="contact-icon location-icon"></i> 方向：全栈 / 后端 / AI应用 / RPA</span>
+                    <span class="contact-item"><i class="contact-icon location-icon"></i> 期望工作地：一线 / 新一线城市</span>
+                    <span class="contact-item"><i class="contact-icon location-icon"></i> 现状：某公立大学 数据科学相关专业 本科在读</span>
+                </div>
+            </div>
+            <div class="avatar-container">
+                <div class="avatar-placeholder">
+                    证件照<br>(85×100)
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 专业技能 -->
+    <div class="section">
+        <div class="section-title">专业技能</div>
+        <div class="skill-category">
+            <span class="skill-label">后端开发：</span>
+            <span class="skill-content">Java、Python，SpringBoot、FastAPI、若依；MySQL、Redis、ChromaDB；Linux、SSH、Docker、宝塔部署</span>
+        </div>
+        <div class="skill-category">
+            <span class="skill-label">前端开发：</span>
+            <span class="skill-content">Vue、HTML/CSS/JS、微信小程序、原生 JS 组件开发；能借助 AI 快速完成页面与交互落地</span>
+        </div>
+        <div class="skill-category">
+            <span class="skill-label">AI & 自动化 & RPA：</span>
+            <span class="skill-content">CrewAI、RAG、提示词工程、OpenClaw、Agent-Browser、Scrapling；影刀 RPA、Excel 读写、网页自动化</span>
+        </div>
+        <div class="skill-category">
+            <span class="skill-label">区块链 & 智能合约（Web3）：</span>
+            <span class="skill-content">Solidity、Foundry、合约部署、链上哈希存证与防篡改验证</span>
+        </div>
+        <div class="skill-category">
+            <span class="skill-label">工具链：</span>
+            <span class="skill-content">Git、Docker、宝塔、SSH、云服务器部署、前后端分离上线、SSE</span>
+        </div>
+    </div>
+    
+    <!-- 项目经历 -->
+    <div class="section">
+        <div class="section-title">项目经历</div>
+        
+        <div class="experience-item">
+            <div class="project-block">
+                <div class="project-name">AI 智能客服聊天机器人 - Indigo Road Realty</div>
+                <div class="project-tech"><strong>技术栈：</strong>Python、FastAPI、CrewAI（多智能体）、DeepSeek API、ChromaDB、RAG、SSE、原生JS/HTML5/CSS3</div>
+                <div class="project-role"><strong>负责：</strong>独立开发（全栈）、架构设计、部署落地</div>
+                <ul class="project-list">
+                    <li>为美国房产公司开发 7×24 小时 AI 客服，基于 CrewAI 实现意图识别、知识问答与动作执行协作</li>
+                    <li>构建 RAG + ChromaDB 私有知识库，支持语义检索与来源标注，降低约 60% 人工客服工作量</li>
+                    <li>设计 SSE 流式聊天 Widget 并完成本地化部署，将客户响应时间从 2 小时缩短到秒级</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="experience-item">
+            <div class="project-block">
+                <div class="project-name">智链签 — 基于区块链的合同防篡改存证系统</div>
+                <div class="project-tech"><strong>技术栈：</strong>Solidity、Foundry、SpringBoot、Vue、若依、MySQL、Redis、Docker</div>
+                <div class="project-role"><strong>负责：</strong>全栈开发 + 智能合约 + 服务器部署上线</div>
+                <ul class="project-list">
+                    <li>设计合同上传、哈希生成、上链存证、验签核验全流程，并用 Solidity 完成链上存证合约</li>
+                    <li>基于若依搭建后台管理系统，落地权限、日志、合同管理，并用 Docker 部署到云服务器演示</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="experience-item">
+            <div class="project-block">
+                <div class="project-name">OpenClaw 趋势哨兵 — AI 自动化商机监控 Agent</div>
+                <div class="project-tech"><strong>技术栈：</strong>OpenClaw、Agent-Browser、Scrapling、定时任务、GitHub API</div>
+                <div class="project-role"><strong>负责：</strong>配置、部署、提示词优化、自动化规则设计</div>
+                <ul class="project-list">
+                    <li>搭建 AI 自动化 Agent，每日扫描 GitHub 趋势、Google、Hacker News 等站点</li>
+                    <li>配置反爬采集与规则引擎，自动识别高潜力项目并输出结构化日报，实现无人值守运行</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="experience-item">
+            <div class="project-block">
+                <div class="project-name">影刀 RPA 自动化业务机器人</div>
+                <div class="project-tech"><strong>技术栈：</strong>影刀 RPA、Excel 数据处理、网页自动化、Windows 脚本</div>
+                <div class="project-role"><strong>负责：</strong>流程设计、开发、调试与落地</div>
+                <ul class="project-list">
+                    <li>开发表格清洗、批量录入、网页自动操作等机器人，实现 Excel 读写、转换与统计自动化</li>
+                    <li>适配电商、办公、数据整理场景，业务处理效率提升 80%+</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="experience-item">
+            <div class="project-block">
+                <div class="project-name">餐厅管理后端系统（练手项目）</div>
+                <div class="project-tech"><strong>技术栈：</strong>SpringBoot、MySQL、Redis</div>
+                <div class="project-role"><strong>负责：</strong>后端接口 + 数据库设计</div>
+                <ul class="project-list">
+                    <li>实现用户登录、菜品管理、分类与 CRUD 接口，完成基础后端开发与接口调试</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 教育背景 -->
+    <div class="section">
+        <div class="section-title">教育背景</div>
+        <div class="edu-item">
+            <span class="edu-school">某公立大学 | 数据科学相关专业 | 本科</span>
+            <span class="exp-date">2023.09 - 2027.06</span>
+        </div>
+        <div class="edu-details">
+            <span>具备数据处理、编程基础与项目实战能力，能快速学习并借助 AI 提升开发效率</span>
+        </div>
+    </div>
+    
+    <!-- 自我评价 -->
+    <div class="section">
+        <div class="section-title">自我评价</div>
+        <ul class="eval-list">
+            <li>具备<strong>全栈开发能力</strong>，后端为主，可独立完成从设计、开发到部署上线的完整流程</li>
+            <li>熟悉 CrewAI、RAG、RPA、智能合约等方向，注重工程落地、成本优化与快速适配</li>
+        </ul>
+    </div>
+</body>
+</html>
